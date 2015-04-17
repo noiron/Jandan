@@ -29,7 +29,7 @@ class Spider_Model:
 
         # 找出所有class="content"的div标记
         # re.s是任意匹配模式，也就是.可以匹配换行符
-        pattern ='<div.*?class="text"><span.*?class=".*?"><a.*?href=".*?">.*?</a></span><p>(.*?)</p>'
+        pattern ='<div.*?class="text"><span.*?class=".*?"><a.*?href=".*?">.*?</a></span><p>(.*?)</p>.*?cos_support-.*?">(.*?)</span>]'
         myItems = re.findall(pattern, unicodePage, re.S)
 
         items = []
