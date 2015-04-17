@@ -35,8 +35,11 @@ class Spider_Model:
         items = []
 
         for item in myItems:
-            item = item.replace("<br />", " ")
-            items.append([item.replace("\n", "")])      # ?????????????
+            # print "*"*50 + "\n" + item
+            text = item[0].replace("<br />", " ")
+            # items.append([item.replace("\n", "")])      # ?????????????
+            items.append([text, item[1]])
+            # print items[-1]
         return items
 
     # 用于加载新的段子
