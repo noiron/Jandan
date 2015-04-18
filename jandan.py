@@ -11,7 +11,7 @@ class Spider_Model:
 
     def __init__(self):
 
-        self.page = 323
+        self.page = 200
         self.pages = []
         self.enable = False
 
@@ -29,7 +29,7 @@ class Spider_Model:
 
         # 找出所有class="content"的div标记
         # re.s是任意匹配模式，也就是.可以匹配换行符
-        pattern ='<div.*?class="text"><span.*?class=".*?"><a.*?href=".*?">.*?</a></span><p>(.*?)</p>.*?cos_support-.*?">(.*?)</span>]'
+        pattern ='<div.*?class="text"><span.*?class=".*?"><a.*?href=".*?">.*?</a></span><p>(.*?)</p>\s+<div.*?class="vote".*?cos_support-.*?">(\d+)</span>.*?cos_unsupport-.*?">(\d+)</span>]</div>'
         myItems = re.findall(pattern, unicodePage, re.S)
 
         items = []
@@ -38,7 +38,7 @@ class Spider_Model:
             # print "*"*50 + "\n" + item
             text = item[0].replace("<br />", " ")
             # items.append([item.replace("\n", "")])      # ?????????????
-            items.append([text, item[1]])
+            items.append([text, item[1], item[2]])
             # print items[-1]
         return items
 
@@ -51,7 +51,6 @@ class Spider_Model:
                 try:
                     # 获取新的页面中的段子
                     myPage = self.GetPage(str(self.page))
-                    # print myPage
                     self.page += 1
                     self.pages.append(myPage)
                 except:
@@ -62,13 +61,14 @@ class Spider_Model:
     def ShowPage(self, nowPage, page):
         for items in nowPage:
             try:
-                print "-"*50 + "\n"
-                print u"第%d页" % page, items[0]
-                print "oo" + items[1]
-                myInput = raw_input()
-                if myInput == "quit":
-                    self.enable = False
-                    break
+                if int(items[1]) >= int(items[2]):
+                    print "-"*50 + "\n"
+                    print u"第%d页" % page, items[0]
+                    print "\noo:" + items[1] + "\txx:" + items[2]
+                    myInput = raw_input()
+                    if myInput == "quit":
+                        self.enable = False
+                        break
             except:
                 print u"这条段子无法显示……\n"
 
