@@ -51,6 +51,7 @@ class Spider_Model:
                 try:
                     # 获取新的页面中的段子
                     myPage = self.GetPage(str(self.page))
+                    # print myPage
                     self.page += 1
                     self.pages.append(myPage)
                 except:
@@ -63,6 +64,7 @@ class Spider_Model:
             try:
                 print "-"*50 + "\n"
                 print u"第%d页" % page, items[0]
+                print "oo" + items[1]
                 myInput = raw_input()
                 if myInput == "quit":
                     self.enable = False
