@@ -27,7 +27,6 @@ class Spider_Model:
         req = urllib2.Request(myUrl, headers = headers)
         myResponse = urllib2.urlopen(req)
         myPage = myResponse.read()
-
         unicodePage = myPage.decode('utf-8')
 
         # re.s是任意匹配模式，也就是.可以匹配换行符
@@ -56,7 +55,8 @@ class Spider_Model:
                     self.page += 1
                     self.pages.append(myPage)
                 except:
-                    print u"无法连接煎蛋段子"
+                    print u"无法连接煎蛋段子，重新连接中……"
+                    time.sleep(2)
             else:
                 time.sleep(1)
 
@@ -91,12 +91,13 @@ class Spider_Model:
                 self.ShowPage(nowPage, page)
                 page += 1
 
-# print u"请按下回车浏览今日的煎蛋段子……："
-print u'''--------------------------------------------------
+print u'''
+--------------------------------------------------
         程序功能：在命令行中浏览煎蛋网的段子
         Author: wukai
         Time: 2015-04-18
-        输入回车读取更多，have fun!
+        输入回车读取更多，输入quit退出程序
+                    have fun!
 --------------------------------------------------
 '''
 myModel = Spider_Model()
